@@ -169,7 +169,7 @@ public class AdsClass extends AppCompatActivity  {
                     ai = this.getPackageManager().getApplicationInfo( this.getPackageName(), PackageManager.GET_META_DATA );
                     AppKey = String.valueOf(ai.metaData.get("my_app_id"));
 
-                    Toast.makeText(this, AppKey, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(this, AppKey, Toast.LENGTH_SHORT).show();
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -187,7 +187,7 @@ public class AdsClass extends AppCompatActivity  {
         this.AppKey = appKEY;
     }
 
-    public void Webservice() {
+    private void Webservice() {
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Loading Message... Please wait");
         pDialog.setIndeterminate(false);
@@ -268,36 +268,21 @@ public class AdsClass extends AppCompatActivity  {
                                 else if (currentadnetwork.equals("addapptr")) {
 
 
-
-//                                    if (adsList.get(i).getAdNetwork().equals("addapptr") && (adsList.get(i).getAdsType().equals("inter"))) {
-//
-//                                        AdColony_APP_ID = adsList.get(i).getNetworkAppId();
-//                                        Adcolony_ZONE_ID = adsList.get(i).getPlacementId();
-//                                        AD_UNIT_Zone_Ids[0] = Adcolony_ZONE_ID;
-//                                    } else if (adsList.get(i).getAdNetwork().equals("addapptr") && (adsList.get(i).getAdsType().equals("banner"))) {
-//                                        AdColony_APP_ID = adsList.get(i).getNetworkAppId();
-//                                        Adcolony_banner_Zone_ID = adsList.get(i).getPlacementId();
-//                                        AD_UNIT_Zone_Ids[1] = Adcolony_ZONE_ID;
-//                                    }
-                                    //  loadInterastialAds();
                                 }
 
 
                             }
 
 
-                            // showDialog();
+
                             initAdNetwork();
 
-                            // Log.d("response--",response.toString());
-                            // setDialogData();
-//                           dialogList.get(0).getTitleText()
-                            //  Toast.makeText(com.yami.videourlplayer.masterpackage.AdsClass.this, "Success", Toast.LENGTH_SHORT).show();
+
                             pDialog.dismiss();
                         } else {
 
                             pDialog.dismiss();
-                            Toast.makeText(AdsClass.this, "No record Found", Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(AdsClass.this, "No record Found", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         nodata = true;
@@ -360,7 +345,7 @@ public class AdsClass extends AppCompatActivity  {
 
     }
 
-    public void showAdcolonyInterastial(Callable<Void> callable) {
+    private void showAdcolonyInterastial(Callable<Void> callable) {
         listener = new AdColonyInterstitialListener() {
             @Override
             public void onRequestFilled(AdColonyInterstitial ad) {
@@ -411,7 +396,7 @@ public class AdsClass extends AppCompatActivity  {
     }
 
 
-    public void showAdcolonyBanner() {
+    private void showAdcolonyBanner() {
         AdColonyAdViewListener listener = new AdColonyAdViewListener() {
             @Override
             public void onRequestFilled(AdColonyAdView ad) {
@@ -531,7 +516,7 @@ public class AdsClass extends AppCompatActivity  {
     }
 
     private void showToastMessage(String message) {
-        Toast.makeText(AdsClass.this, message, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(AdsClass.this, message, Toast.LENGTH_SHORT).show();
     }
 
     private final PlayAdCallback VunglePlayAdBannerCallback = new PlayAdCallback() {
@@ -611,7 +596,7 @@ public class AdsClass extends AppCompatActivity  {
     }
 
     @SuppressLint("MissingPermission")
-    public void loadGoogleInterastialAds() {
+    private void loadGoogleInterastialAds() {
         googleInterstitialAd = new com.google.android.gms.ads.InterstitialAd(this);
         googleInterstitialAd.setAdUnitId(googleInterastialAdsId);
         googleInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -619,7 +604,7 @@ public class AdsClass extends AppCompatActivity  {
 
     }
 
-    public void showGoogleInterastialAds(Callable<Void> callable) {
+    private void showGoogleInterastialAds(Callable<Void> callable) {
 
         if (googleInterstitialAd.isLoaded()) {
             googleInterstitialAd.show();
@@ -632,7 +617,7 @@ public class AdsClass extends AppCompatActivity  {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    loadGoogleInterastialAds();
+                  //  loadGoogleInterastialAds();
                 }
 
                 @Override
@@ -654,7 +639,7 @@ public class AdsClass extends AppCompatActivity  {
         }
     }
 
-    public void showGoogleBannerAds() {
+    private void showGoogleBannerAds() {
         //google banner
         AdView adView = new AdView(this);
 
@@ -671,7 +656,7 @@ public class AdsClass extends AppCompatActivity  {
         AudienceNetworkAds.initialize(this);
     }
 
-    public void loadfacebookInterastialAds() {
+    private void loadfacebookInterastialAds() {
 
         facebookInterstitialAd = new com.facebook.ads.InterstitialAd(AdsClass.this, facebookInterstitialAdid);
         facebookInterstitialAd.loadAd();
@@ -694,7 +679,7 @@ public class AdsClass extends AppCompatActivity  {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    loadfacebookInterastialAds();
+                  //  loadfacebookInterastialAds();
                 }
 
                 @Override
@@ -704,7 +689,7 @@ public class AdsClass extends AppCompatActivity  {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    loadfacebookInterastialAds();
+                   // loadfacebookInterastialAds();
 
                 }
 
@@ -736,7 +721,7 @@ public class AdsClass extends AppCompatActivity  {
     }
 
 
-    public void showfacebookBanner() {
+    private void showfacebookBanner() {
         // facebook banner
         adView = new com.facebook.ads.AdView(this, facebookBannerAdid, com.facebook.ads.AdSize.BANNER_HEIGHT_50);
         RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.layout_banner);
@@ -744,7 +729,7 @@ public class AdsClass extends AppCompatActivity  {
         adView.loadAd();
     }
 
-    public void showStartAppBanner() {
+    private void showStartAppBanner() {
         RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.layout_banner);
         Banner startAppBanner = new Banner(this);
         RelativeLayout.LayoutParams bannerParameters =
@@ -855,7 +840,6 @@ public class AdsClass extends AppCompatActivity  {
 
     public void showDialog() {
 
-
         if (isConnected(this)) {
 
             if (!nodata) {
@@ -893,9 +877,9 @@ public class AdsClass extends AppCompatActivity  {
         }
         else if(currentadnetwork.equals("addapptr"))
         {
-            Toast.makeText(this, "add app tr", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "add app tr", Toast.LENGTH_SHORT).show();
         } else{
-            Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -917,7 +901,7 @@ public class AdsClass extends AppCompatActivity  {
             loadAddapptrInterstitial();
         }
         else {
-            Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -944,7 +928,7 @@ public class AdsClass extends AppCompatActivity  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -981,7 +965,7 @@ public class AdsClass extends AppCompatActivity  {
     public void showAddapptrBanner(){
         AATKit.onActivityResume(this);
         // RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.layout_banner);
-        bannerPlacementId = createPlacement("Banner",
+        bannerPlacementId = createPlacement("banner",
                 PlacementSize.Banner320x53);
         addPlacementView(bannerPlacementId);
         AATKit.startPlacementAutoReload(bannerPlacementId);
@@ -1001,24 +985,6 @@ public class AdsClass extends AppCompatActivity  {
     public  Callable clb=null;
     public boolean AdsShown = false;
     public void showAddapptrInterstitial(Callable<Void> callable){
-
-        //  aatKitEventListner = createOnAATKitEventListener(callable);
-
-
-
-
-        // AATKit.onActivityResume(this);
-        //   AATKitConfiguration configuration = new AATKitConfiguration(getApplication());
-//       // configuration.setDelegate();
-//        DelegateClass delegate = new DelegateClass();
-//        AATKit.Delegate d = delegate.p;
-//        configuration.setDelegate(d);
-////
-//        fullscreenPlacementId = AATKit.createPlacement("Fullscreen", PlacementSize.Fullscreen);
-//
-        //  AATKit.reconfigure(configuration);
-
-
 
         if(!AdsShown)
         {
@@ -1040,10 +1006,6 @@ public class AdsClass extends AppCompatActivity  {
             }
         }
 
-
-
-
-
     }
 
     public AATKitEventListner createOnAATKitEventListener(Callable<Void> callable) {
@@ -1053,10 +1015,7 @@ public class AdsClass extends AppCompatActivity  {
                 if(placementId == fullscreenPlacementId)
                 {
                     try {
-
-                        //clb.call();
                         clb.call();
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -1067,70 +1026,37 @@ public class AdsClass extends AppCompatActivity  {
             public void onHaveAd(int placementId) {
 
 
-                // toast("havead");
-//                showPlacement(fullscreenPlacementId);
-//                if(placementId == fullscreenPlacementId)
-
-
-//                {
-//                    try {
-//
-//                        callable.call();
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-
             }
 
             @Override
             public void onUserEarnedIncentive(int placementId) {
-//                showPlacement(fullscreenPlacementId);
-//                try {
-//                    callable.call();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
 
-//                }
-                // toast("onUserEarnedIncentive");
             }
 
             @Override
             public void onResumeAfterAd(int placementId) {
-//                Toast.makeText(showcaseApplication, "1", Toast.LENGTH_SHORT).show();
+//              //  Toast.makeText(showcaseApplication, "1", Toast.LENGTH_SHORT).show();
                 if(placementId == fullscreenPlacementId)
                 {
-                    Toast.makeText(showcaseApplication, "2", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(showcaseApplication, "2", Toast.LENGTH_SHORT).show();
                     try {
 
                         clb.call();
                         // callable.call();
-                        Toast.makeText(showcaseApplication, "3", Toast.LENGTH_SHORT).show();
+                 //       Toast.makeText(showcaseApplication, "3", Toast.LENGTH_SHORT).show();
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(showcaseApplication, "4", Toast.LENGTH_SHORT).show();
+                   //     Toast.makeText(showcaseApplication, "4", Toast.LENGTH_SHORT).show();
 
                     }
                 }
 
-                // toast("onResumeAfterAd");
             }
 
             @Override
             public void onHaveVASTAd(int placementId, VASTAdData data) {
-//                showPlacement(fullscreenPlacementId);
-//                try {
-//                    callable.call();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
             }
-
-
-
-
         };
     }
 

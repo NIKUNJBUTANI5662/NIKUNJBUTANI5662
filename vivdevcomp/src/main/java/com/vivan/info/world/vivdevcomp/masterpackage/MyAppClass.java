@@ -26,16 +26,6 @@ public class MyAppClass extends Application implements AATKit.Delegate{
     public void onCreate() {
         super.onCreate();
 
-//        AATKitConfiguration configuration = new AATKitConfiguration(this);
-//       configuration.setTestModeAccountId(2525);
-//        configuration.setDelegate(this);
-//        configuration.setUseDebugShake(false);
-//        AATKit.init(configuration);
-
-//        listener = (AATKitEventListner) g;
-
-
-
         AATKitConfiguration configuration = new AATKitConfiguration((Application) getApplicationContext());
         configuration.setDelegate(this);
         //   configuration.setTestModeAccountId(2525);
@@ -43,7 +33,7 @@ public class MyAppClass extends Application implements AATKit.Delegate{
         // configuration.setUseDebugShake(false);
 
         AATKit.init(configuration);
-        AATKit.enableTestMode(2525);
+      //  AATKit.enableTestMode(2525);
 
 
     }

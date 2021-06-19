@@ -48,7 +48,7 @@ public class MainActivity  extends AdsClass {
 
                   loadInterastialAds();
 
-                 // showBannerAds();
+                  showBannerAds();
 
             }
         }, 5000);
