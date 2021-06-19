@@ -1,0 +1,3 @@
+include ':vivdevcomp'
+include ':app'
+rootProject.name = "cooldevcomp"

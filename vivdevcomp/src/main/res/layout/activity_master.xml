@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:layout_above="@+id/layout_banner"
+        android:id="@+id/lstMaster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:backgroundTint="@color/black"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/layout_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
