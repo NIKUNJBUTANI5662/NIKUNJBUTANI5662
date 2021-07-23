@@ -73,6 +73,7 @@ public class MasterActivity extends AdsClass{
                     {
                         if(response.getMasterDetail().size()>0)
                         {
+                            masterList.clear();
                             masterList.addAll(response.getMasterDetail());
                             masterAdapter = new MasterListAdapter(MasterActivity.this,masterList);
                             lstMaster.setAdapter(masterAdapter);

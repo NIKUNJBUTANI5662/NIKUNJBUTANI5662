@@ -23,13 +23,22 @@ public class MainActivity  extends AdsClass {
         btnInter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInterstitialAds(new Callable<Void>() {
-                    @Override
-                    public Void call() throws Exception {
-                     //   Toast.makeText(MainActivity.this, "Ads", Toast.LENGTH_SHORT).show();
-                        return null;
-                    }
-                });
+
+                showDialog();
+//                showInterstitialAds(new Callable<Void>() {
+//                    @Override
+//                    public Void call() throws Exception {
+//                     //   Toast.makeText(MainActivity.this, "Ads", Toast.LENGTH_SHORT).show();
+//                        return null;
+//                    }
+//                });
+//
+
+
+
+
+
+
 //                showAddapptrInterstitial(new Callable<Void>() {
 //                    @Override
 //                    public Void call() throws Exception {

@@ -24,7 +24,7 @@ public class YoutubeActivity extends AdsClass {
         loadInterastialAds();
         String myurl = getIntent().getStringExtra("url");
 
-        YouTubePlayerView youTubePlayerView = (YouTubePlayerView)findViewById(R.id.youtube_player_view);
+        youTubePlayerView = (YouTubePlayerView)findViewById(R.id.youtube_player_view);
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {

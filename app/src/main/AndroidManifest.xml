@@ -18,6 +18,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.vivan.info.world.vivdevcomp.masterpackage.MasterActivity"/>
+        <activity android:name="com.vivan.info.world.vivdevcomp.masterpackage.VideoActivity"/>
+        <activity android:name="com.vivan.info.world.vivdevcomp.masterpackage.YoutubeActivity"/>
+        <activity android:name="com.vivan.info.world.vivdevcomp.masterpackage.WebActivity"/>
+
 
 
     </application>

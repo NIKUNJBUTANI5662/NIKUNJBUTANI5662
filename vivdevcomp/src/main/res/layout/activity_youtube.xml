@@ -8,11 +8,12 @@
         android:layout_above="@+id/layout_banner"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/youtube_player_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+          <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+               android:id="@+id/youtube_player_view"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <RelativeLayout
         android:backgroundTint="@color/black"
         android:layout_alignParentBottom="true"
