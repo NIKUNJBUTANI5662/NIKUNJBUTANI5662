@@ -243,7 +243,7 @@ public class AdsClass extends AppCompatActivity  {
 
 
     public void initGoogleAds() {
-        MobileAds.initialize(AdsClass.this);
+        MobileAds.initialize(AdsClass.this,google_appid);
     }
 
 
