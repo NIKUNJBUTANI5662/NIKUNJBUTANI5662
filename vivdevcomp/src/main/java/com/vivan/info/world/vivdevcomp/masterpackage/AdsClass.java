@@ -28,16 +28,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.adcolony.sdk.AdColony;
-import com.adcolony.sdk.AdColonyAdOptions;
-import com.adcolony.sdk.AdColonyAdSize;
-import com.adcolony.sdk.AdColonyAdView;
-import com.adcolony.sdk.AdColonyAdViewListener;
-import com.adcolony.sdk.AdColonyAppOptions;
-import com.adcolony.sdk.AdColonyInterstitial;
-import com.adcolony.sdk.AdColonyInterstitialListener;
-import com.adcolony.sdk.AdColonyUserMetadata;
-import com.adcolony.sdk.AdColonyZone;
 import com.bumptech.glide.Glide;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
@@ -48,40 +38,19 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.intentsoftware.addapptr.AATKit;
-import com.intentsoftware.addapptr.AATKitConfiguration;
-import com.intentsoftware.addapptr.BannerPlacementLayout;
-import com.intentsoftware.addapptr.PlacementSize;
-import com.intentsoftware.addapptr.ad.VASTAdData;
+
+
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BaseJsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.startapp.sdk.ads.banner.Banner;
-import com.startapp.sdk.adsbase.StartAppAd;
-import com.startapp.sdk.adsbase.StartAppSDK;
-import com.startapp.sdk.adsbase.VideoListener;
 
 import com.vivan.info.world.vivdevcomp.R;
-import com.vungle.warren.AdConfig;
-import com.vungle.warren.Banners;
-import com.vungle.warren.InitCallback;
-import com.vungle.warren.LoadAdCallback;
-import com.vungle.warren.PlayAdCallback;
-import com.vungle.warren.Vungle;
-import com.vungle.warren.VungleBanner;
-import com.vungle.warren.error.VungleException;
-//import com.vivan.info.world.vivdevcomp.R;
-
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
-
 import cz.msebera.android.httpclient.Header;
 
-import static com.adcolony.sdk.AdColony.requestInterstitial;
-import static com.intentsoftware.addapptr.AATKit.createPlacement;
-import static com.intentsoftware.addapptr.AATKit.enableTestMode;
-import static com.intentsoftware.addapptr.AATKit.hasAdForPlacement;
-import static com.intentsoftware.addapptr.AATKit.showPlacement;
+
 
 
 public class AdsClass extends AppCompatActivity  {
@@ -94,44 +63,14 @@ public class AdsClass extends AppCompatActivity  {
     public static ArrayList<DialogDetail> dialogList = new ArrayList<>();
     public ArrayList<AdsDetail> adsList = new ArrayList<>();
     public static String currentadnetwork = "";
-    private AdColonyAdView bannerAdColony;
 
-    // for vungle
-    private static String Vungle_APP_ID = "";
-    private static String Vungle_Int_ID = "";
-    private static String Vungle_Banner_ID = "";
-//
-//    private static String Vungle_APP_ID = "5fffc0d9d15708acb64b1789";
-//    private String Vungle_Int_ID="TEACHER_INT-1125834";
-//    private String Vungle_Banner_ID="TEACHER_BANNER-2499102";
-
-    // for Adscolony
-    private static String AdColony_APP_ID = "";
-    private static String Adcolony_ZONE_ID = "";
-    private static String Adcolony_banner_Zone_ID = "";
-
-    //    private String AdColony_APP_ID = "appfd999accf4f54a65b2";
-//    private String Adcolony_ZONE_ID = "vzea12dd5bdb1242da87";
-//    private String Adcolony_banner_Zone_ID = "vz04cdc7f61c2d4aedb8";
     public final String[] AD_UNIT_Zone_Ids = new String[2];
     // final private String AdColony_TAG = "AdColonyDemo";
 
-    private AdColonyInterstitial ad;
-    private AdColonyInterstitialListener listener;
-    private AdColonyAdOptions adOptions;
-    public com.google.android.gms.ads.InterstitialAd googleInterstitialAd;
+    public  com.google.android.gms.ads.InterstitialAd googleInterstitialAd;
     private com.facebook.ads.InterstitialAd facebookInterstitialAd;
     private com.facebook.ads.AdView adView;
 
-    // for startApp
-    private String StartAppId = "";
-//    private String StartAppId = "200045219";
-
-    // for google
-//    private String google_appid="ca-app-pub-3940256099942544~3347511713";
-//    private String googleInterastialAdsId="ca-app-pub-3940256099942544/1033173712";
-//    private String googleBannerAdsId="ca-app-pub-3940256099942544/6300978111";
-//
 
     private static String google_appid = "";
     private static String googleInterastialAdsId = "";
@@ -150,9 +89,6 @@ public class AdsClass extends AppCompatActivity  {
     private int bannerPlacementId = -1;
 
     private MyAppClass showcaseApplication;
-//
-//    private String facebookInterstitialAdid="373097850233939_373098686900522";
-//    private String facebookBannerAdid="373097850233939_750608699149517";
 
 
     @Override
@@ -235,39 +171,6 @@ public class AdsClass extends AppCompatActivity  {
                                         facebookBannerAdid = adsList.get(i).getPlacementId();
                                     }
                                     //  loadInterastialAds();
-                                } else if (currentadnetwork.equals("vungle")) {
-                                    if (adsList.get(i).getAdNetwork().equals("vungle") && (adsList.get(i).getAdsType().equals("inter"))) {
-                                        Vungle_APP_ID = adsList.get(i).getNetworkAppId();
-                                        Vungle_Int_ID = adsList.get(i).getPlacementId();
-                                    } else if (adsList.get(i).getAdNetwork().equals("vungle") && (adsList.get(i).getAdsType().equals("banner"))) {
-                                        Vungle_APP_ID = adsList.get(i).getNetworkAppId();
-                                        Vungle_Banner_ID = adsList.get(i).getPlacementId();
-                                    }
-                                    //  loadInterastialAds();
-
-                                } else if (currentadnetwork.equals("adcolony")) {
-                                    if (adsList.get(i).getAdNetwork().equals("adcolony") && (adsList.get(i).getAdsType().equals("inter"))) {
-
-                                        AdColony_APP_ID = adsList.get(i).getNetworkAppId();
-                                        Adcolony_ZONE_ID = adsList.get(i).getPlacementId();
-                                        AD_UNIT_Zone_Ids[0] = Adcolony_ZONE_ID;
-                                    } else if (adsList.get(i).getAdNetwork().equals("adcolony") && (adsList.get(i).getAdsType().equals("banner"))) {
-                                        AdColony_APP_ID = adsList.get(i).getNetworkAppId();
-                                        Adcolony_banner_Zone_ID = adsList.get(i).getPlacementId();
-                                        AD_UNIT_Zone_Ids[1] = Adcolony_ZONE_ID;
-                                    }
-                                    //  loadInterastialAds();
-
-                                } else if (currentadnetwork.equals("startapp")) {
-                                    if (adsList.get(i).getAdNetwork().equals("startapp") && (adsList.get(i).getAdsType().equals("inter"))) {
-                                        StartAppId = adsList.get(i).getNetworkAppId();
-                                        // googleInterastialAdsId = adsList.get(i).getPlacementId();
-                                    }
-                                    //  loadInterastialAds();
-                                }
-                                else if (currentadnetwork.equals("addapptr")) {
-
-
                                 }
 
 
@@ -330,274 +233,23 @@ public class AdsClass extends AppCompatActivity  {
     }
 
 
-    private void initAdcolony() {
-        AdColonyAppOptions appOptions = new AdColonyAppOptions()
-                .setUserID("xx")
-                .setKeepScreenOn(true);
 
-        AdColony.configure(this, appOptions, AdColony_APP_ID, AD_UNIT_Zone_Ids);
-
-
-        AdColonyUserMetadata metadata = new AdColonyUserMetadata()
-                .setUserAge(26)
-                .setUserEducation(AdColonyUserMetadata.USER_EDUCATION_BACHELORS_DEGREE)
-                .setUserGender(AdColonyUserMetadata.USER_MALE);
-
-    }
-
-    private void showAdcolonyInterastial(Callable<Void> callable) {
-        listener = new AdColonyInterstitialListener() {
-            @Override
-            public void onRequestFilled(AdColonyInterstitial ad) {
-                AdsClass.this.ad = ad;
-                ad.show();
-
-            }
-
-            @Override
-            public void onRequestNotFilled(AdColonyZone zone) {
-                try {
-                    callable.call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                requestInterstitial(Adcolony_ZONE_ID, this, adOptions);
-            }
-
-            @Override
-            public void onOpened(AdColonyInterstitial ad) {
-
-            }
-
-            @Override
-            public void onExpiring(AdColonyInterstitial ad) {
-//                try {
-//                    callable.call();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                requestInterstitial(Adcolony_ZONE_ID, this, adOptions);
-
-            }
-
-            @Override
-            public void onClosed(AdColonyInterstitial ad) {
-                try {
-                    callable.call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //  requestInterstitial(Adcolony_ZONE_ID, this, adOptions);
-            }
-        };
-
-        AdColony.requestInterstitial(Adcolony_ZONE_ID, listener, adOptions);
-
-    }
-
-
-    private void showAdcolonyBanner() {
-        AdColonyAdViewListener listener = new AdColonyAdViewListener() {
-            @Override
-            public void onRequestFilled(AdColonyAdView ad) {
-                RelativeLayout bannerContainer = (RelativeLayout) findViewById(R.id.layout_banner);
-                bannerContainer.addView(ad);
-                bannerAdColony = ad;
-
-            }
-        };
-        AdColony.requestAdView(Adcolony_banner_Zone_ID, listener, AdColonyAdSize.BANNER);
-    }
-
-    private void initVungleInterastailAd() {
-        Vungle.init(Vungle_APP_ID, AdsClass.this.getApplicationContext(), new InitCallback() {
-            @Override
-            public void onSuccess() {
-                loadVungleBanner();
-            }
-
-            @Override
-            public void onError(VungleException e) {
-
-            }
-
-            @Override
-            public void onAutoCacheAdAvailable(String pid) {
-
-            }
-        });
-    }
-
-    private void loadVungleInterastialAd() {
-
-        Vungle.loadAd(Vungle_Int_ID, new LoadAdCallback() {
-            @Override
-            public void onAdLoad(String id) {
-
-            }
-
-            @Override
-            public void onError(String id, VungleException e) {
-
-            }
-        });
-    }
-
-    private void loadVungleBanner() {
-        Banners.loadBanner(Vungle_Banner_ID, AdConfig.AdSize.BANNER, vungleLoadAdCallback);
-    }
-
-    private void playVungleBanner() {
-        // vungle banner
-        RelativeLayout bannerContainer = findViewById(R.id.layout_banner);
-        if (Banners.canPlayAd(Vungle_Banner_ID, AdConfig.AdSize.BANNER)) {
-            VungleBanner vungleBanner = Banners.getBanner(Vungle_Banner_ID, AdConfig.AdSize.BANNER, VunglePlayAdBannerCallback);
-            bannerContainer.addView(vungleBanner);
-        }
-    }
-
-    private void playVungleInterastialAd(Callable<Void> callable) {
-
-        Vungle.playAd(Vungle_Int_ID, new AdConfig(), new PlayAdCallback() {
-            @Override
-            public void onAdStart(String placementReferenceID) {
-                //    showToastMessage("Ad Start");
-            }
-
-            @Override
-            public void onAdViewed(String placementReferenceID) {
-                //    showToastMessage("Ad Viewed");
-            }
-
-
-            @Override
-            public void onAdEnd(String id, boolean completed, boolean isCTAClicked) {
-                try {
-                    callable.call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                loadfacebookInterastialAds();
-            }
-
-            @Override
-            public void onAdEnd(String placementReferenceID) {
-
-                //showToastMessage("Ad End");
-            }
-
-            @Override
-            public void onAdClick(String placementReferenceID) {
-                showToastMessage("Ad Clicked");
-            }
-
-            @Override
-            public void onAdRewarded(String placementReferenceID) {
-                // showToastMessage("User Rewarded");
-            }
-
-            @Override
-            public void onAdLeftApplication(String placementReferenceID) {
-                //   showToastMessage("User Left Application");
-            }
-
-            @Override
-            public void onError(String id, VungleException e) {
-                //  setButtonState(false, true, false);
-                try {
-                    callable.call();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                loadVungleInterastialAd();
-//                showToastMessage("Ad Play Error : " + e.getLocalizedMessage());
-            }
-        });
-    }
 
     private void showToastMessage(String message) {
        // Toast.makeText(AdsClass.this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private final PlayAdCallback VunglePlayAdBannerCallback = new PlayAdCallback() {
-        @Override
-        public void onAdStart(String id) {
-            // Ad experience started
-        }
-
-        @Override
-        public void onAdEnd(String id, boolean completed, boolean isCTAClicked) {
-
-        }
-
-        @Override
-        public void onAdViewed(String id) {
-            // Ad has rendered
-        }
-
-        @Override
-        public void onAdEnd(String id) {
-            // Ad experience ended
-        }
-
-        @Override
-        public void onAdClick(String id) {
-            // User clicked on ad
-        }
-
-        @Override
-        public void onAdRewarded(String id) {
-
-        }
-
-        @Override
-        public void onAdLeftApplication(String id) {
-            // User has left app during an ad experience
-        }
-
-        @Override
-        public void onError(String id, VungleException exception) {
-            // Ad failed to play
-        }
-    };
-
-    private final LoadAdCallback vungleLoadAdCallback = new LoadAdCallback() {
-        @Override
-        public void onAdLoad(String id) {
-            // Ad has been successfully loaded for the placement
-            playVungleBanner();
-        }
-
-        @Override
-        public void onError(String id, VungleException exception) {
-            // Ad has failed to load for the placement
-        }
-    };
-
-    private void initStartApp() {
-        StartAppSDK.init(this, StartAppId, false);
-    }
-
-    private void initStartAppRewardVideo() {
-        StartAppAd ads = new StartAppAd(this);
-        ads.loadAd(StartAppAd.AdMode.REWARDED_VIDEO);
-        ads.setVideoListener(new VideoListener() {
-            @Override
-            public void onVideoCompleted() {
-
-            }
-        });
-    }
 
 
-    @SuppressLint("MissingPermission")
+
     public void initGoogleAds() {
-        MobileAds.initialize(AdsClass.this, google_appid);
+        MobileAds.initialize(AdsClass.this);
     }
 
-    @SuppressLint("MissingPermission")
+
     private void loadGoogleInterastialAds() {
-        googleInterstitialAd = new com.google.android.gms.ads.InterstitialAd(this);
+
+        googleInterstitialAd =  new com.google.android.gms.ads.InterstitialAd(AdsClass.this);
         googleInterstitialAd.setAdUnitId(googleInterastialAdsId);
         googleInterstitialAd.loadAd(new AdRequest.Builder().build());
 
@@ -729,18 +381,6 @@ public class AdsClass extends AppCompatActivity  {
         adView.loadAd();
     }
 
-    private void showStartAppBanner() {
-        RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.layout_banner);
-        Banner startAppBanner = new Banner(this);
-        RelativeLayout.LayoutParams bannerParameters =
-                new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-        bannerParameters.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        bannerParameters.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-// Add to main Layout
-        adContainer.addView(startAppBanner);
-    }
 
     public final static boolean isConnected(Context context) {
         final ConnectivityManager connectivityManager =
@@ -867,18 +507,7 @@ public class AdsClass extends AppCompatActivity  {
         } else if (currentadnetwork.equals("facebook")) {
             initfacebookAds();
 
-        } else if (currentadnetwork.equals("vungle")) {
-            loadVungleInterastialAd();
-
-        } else if (currentadnetwork.equals("startapp")) {
-            initStartApp();
-        } else if (currentadnetwork.equals("adcolony")) {
-            initAdcolony();
-        }
-        else if(currentadnetwork.equals("addapptr"))
-        {
-          //  Toast.makeText(this, "add app tr", Toast.LENGTH_SHORT).show();
-        } else{
+        }else{
           //  Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
         }
 
@@ -890,15 +519,6 @@ public class AdsClass extends AppCompatActivity  {
             loadGoogleInterastialAds();
         } else if (currentadnetwork.equals("facebook")) {
             loadfacebookInterastialAds();
-        } else if (currentadnetwork.equals("vungle")) {
-            initVungleInterastailAd();
-        } else if (currentadnetwork.equals("startapp")) {
-            initStartApp();
-        } else if (currentadnetwork.equals("adcolony")) {
-            initAdcolony();
-        }
-        else if (currentadnetwork.equals("addapptr")) {
-            loadAddapptrInterstitial();
         }
         else {
          //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
@@ -911,16 +531,6 @@ public class AdsClass extends AppCompatActivity  {
             showGoogleInterastialAds(callable);
         } else if (currentadnetwork.equals("facebook")) {
             showFacebookAds(callable);
-        } else if (currentadnetwork.equals("vungle")) {
-            playVungleInterastialAd(callable);
-        } else if (currentadnetwork.equals("startapp")) {
-            StartAppAd.showAd(this);
-
-        } else if (currentadnetwork.equals("adcolony")) {
-            showAdcolonyInterastial(callable);
-        }
-        else if (currentadnetwork.equals("addapptr")) {
-            showAddapptrInterstitial(callable);
         }
         else {
             try {
@@ -940,176 +550,9 @@ public class AdsClass extends AppCompatActivity  {
         } else if (currentadnetwork.equals("facebook")) {
             initfacebookAds();
             showfacebookBanner();
-        } else if (currentadnetwork.equals("vungle")) {
-            playVungleBanner();
-        } else if (currentadnetwork.equals("startapp")) {
-            showStartAppBanner();
-
-        } else if (currentadnetwork.equals("adcolony")) {
-            initAdcolony();
-            showAdcolonyBanner();
-        }
-        else if (currentadnetwork.equals("addapptr")) {
-            showAddapptrBanner();
         }
         else {
             //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-
-
-
-    //addapptr
-    public void showAddapptrBanner(){
-        AATKit.onActivityResume(this);
-        // RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.layout_banner);
-        bannerPlacementId = createPlacement("banner",
-                PlacementSize.Banner320x53);
-        addPlacementView(bannerPlacementId);
-        AATKit.startPlacementAutoReload(bannerPlacementId);
-    }
-
-    public void loadAddapptrInterstitial(){
-        AATKit.onActivityResume(this);
-
-        fullscreenPlacementId = AATKit.createPlacement("Fullscreen", PlacementSize.Fullscreen);
-        AATKit.startPlacementAutoReload(fullscreenPlacementId);
-        showcaseApplication.setListener(createOnAATKitEventListener(null));
-        resumeonce = 0;
-        AdsShown = false;
-
-    }
-
-    public  Callable clb=null;
-    public boolean AdsShown = false;
-    public void showAddapptrInterstitial(Callable<Void> callable){
-
-        if(!AdsShown)
-        {
-            if(hasAdForPlacement(fullscreenPlacementId))
-            {
-                clb = callable;
-                AATKit.showPlacement(getFullscreenPlacementId());
-                //  aatKitEventListner.onResumeAfterAd(fullscreenPlacementId);
-                AdsShown =true;
-
-            }
-        }
-        else
-        {
-            try {
-                callable.call();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    public AATKitEventListner createOnAATKitEventListener(Callable<Void> callable) {
-        return new AATKitEventListner() {
-            @Override
-            public void onNoAd(int placementId) {
-                if(placementId == fullscreenPlacementId)
-                {
-                    try {
-                        clb.call();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onHaveAd(int placementId) {
-
-
-            }
-
-            @Override
-            public void onUserEarnedIncentive(int placementId) {
-
-            }
-
-            @Override
-            public void onResumeAfterAd(int placementId) {
-//              //  Toast.makeText(showcaseApplication, "1", Toast.LENGTH_SHORT).show();
-                if(placementId == fullscreenPlacementId)
-                {
-                 //   Toast.makeText(showcaseApplication, "2", Toast.LENGTH_SHORT).show();
-                    try {
-
-                        clb.call();
-                        // callable.call();
-                 //       Toast.makeText(showcaseApplication, "3", Toast.LENGTH_SHORT).show();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                   //     Toast.makeText(showcaseApplication, "4", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onHaveVASTAd(int placementId, VASTAdData data) {
-            }
-        };
-    }
-
-    private void addPlacementView(int placementId) {
-        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.layout_banner);
-
-        mainLayout.removeAllViews();
-        View placementView = AATKit.getPlacementView(placementId);
-        if (placementView.getParent() != null){
-            ((ViewGroup)placementView.getParent()).removeView(placementView);
-        }
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-        mainLayout.setVisibility(View.VISIBLE);
-
-        mainLayout.addView(placementView, layoutParams);
-    }
-
-    private void removePlacementView(int placementId) {
-        View placementView = AATKit.getPlacementView(placementId);
-
-        if (placementView.getParent() != null) {
-            ViewGroup parent = (ViewGroup) placementView.getParent();
-            parent.removeView(placementView);
-        }
-    }
-
-    public int getBannerPlacementId() {
-        return bannerPlacementId;
-    }
-
-    public int getFullscreenPlacementId() {
-        return fullscreenPlacementId;
-    }
-
-    public int resumeonce = 0;
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (currentadnetwork.equals("addapptr")) {
-            if(AdsShown) {
-                if(resumeonce == 0) {
-
-                    resumeonce = 1;
-                    try {
-                        clb.call();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
         }
     }
 }

@@ -22,24 +22,8 @@ allprojects {
         jcenter()
         maven { url "https://maven.google.com" }
         maven { url 'https://jitpack.io' }
-        maven {
-            url  "https://adcolony.bintray.com/AdColony"
-        }
-        maven { url "https://s3.amazonaws.com/moat-sdk-builds" }
-        maven {
-            url 'http://android-sdk.aatkit.com/maven/'
-        }
-        maven { url "https://s3.amazonaws.com/smaato-sdk-releases/" } //Smaato repository
-        maven { //Bluestack repository
-            credentials {
-                username "madvertise-maven"
-                password "GpdGZ9GE9SK7ByWdM987"
-            }
-            url "https://api.bitbucket.org/2.0/repositories/mngcorp/deploy-maven-bluestack/src/master"
-            authentication {
-                basic(BasicAuthentication)
-            }
-        }
+
+
 
     }
 }

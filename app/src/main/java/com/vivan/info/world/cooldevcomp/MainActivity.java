@@ -12,6 +12,7 @@ import com.vivan.info.world.vivdevcomp.masterpackage.AdsClass;
 
 import java.util.concurrent.Callable;
 
+
 public class MainActivity  extends AdsClass {
 
     @Override
@@ -23,30 +24,20 @@ public class MainActivity  extends AdsClass {
         btnInter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+              //  MediationTestSuite.launch(MainActivity.this);
+              //  showBannerAds();
+               // loadInterastialAds();
+                showInterstitialAds(new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
 
-                showDialog();
-//                showInterstitialAds(new Callable<Void>() {
-//                    @Override
-//                    public Void call() throws Exception {
-//                     //   Toast.makeText(MainActivity.this, "Ads", Toast.LENGTH_SHORT).show();
-//                        return null;
-//                    }
-//                });
-//
+                        Toast.makeText(MainActivity.this, "Ads", Toast.LENGTH_SHORT).show();
+                        return null;
 
-
-
-
+                    }
+                });
 
 
-//                showAddapptrInterstitial(new Callable<Void>() {
-//                    @Override
-//                    public Void call() throws Exception {
-//
-//                        Toast.makeText(MainActivity.this, "Ads", Toast.LENGTH_SHORT).show();
-//                        return null;
-//                    }
-//                });
             }
         });
 
@@ -57,7 +48,7 @@ public class MainActivity  extends AdsClass {
 
                   loadInterastialAds();
 
-                  showBannerAds();
+                //  showBannerAds();
 
             }
         }, 5000);
