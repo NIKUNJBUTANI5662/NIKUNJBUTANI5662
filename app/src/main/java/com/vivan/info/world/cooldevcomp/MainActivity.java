@@ -24,6 +24,8 @@ public class MainActivity  extends AdsClass {
         btnInter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
               //  MediationTestSuite.launch(MainActivity.this);
               //  showBannerAds();
                // loadInterastialAds();
@@ -46,6 +48,7 @@ public class MainActivity  extends AdsClass {
             @Override
             public void run() {
 
+                showDialog();
                   loadInterastialAds();
 
                 //  showBannerAds();
