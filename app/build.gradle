@@ -13,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-                     manifestPlaceholders = [my_app_id: "TEST"]
+        manifestPlaceholders = [my_app_id: "TEST"]
     }
 
     buildTypes {

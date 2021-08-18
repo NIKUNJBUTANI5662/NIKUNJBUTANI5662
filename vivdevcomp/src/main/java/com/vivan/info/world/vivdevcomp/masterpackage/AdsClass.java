@@ -38,18 +38,17 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-
-
-import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BaseJsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import com.vivan.info.world.vivdevcomp.R;
+//import com.vivan.info.world.vivdevcomp.R;
+
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
-import cz.msebera.android.httpclient.Header;
 
+import cz.msebera.android.httpclient.Header;
 
 
 
@@ -64,12 +63,28 @@ public class AdsClass extends AppCompatActivity  {
     public ArrayList<AdsDetail> adsList = new ArrayList<>();
     public static String currentadnetwork = "";
 
-    public final String[] AD_UNIT_Zone_Ids = new String[2];
-    // final private String AdColony_TAG = "AdColonyDemo";
 
-    public  com.google.android.gms.ads.InterstitialAd googleInterstitialAd;
+    // for vungle
+    private static String Vungle_APP_ID = "";
+    private static String Vungle_Int_ID = "";
+    private static String Vungle_Banner_ID = "";
+
+
+    // for Adscolony
+    private static String AdColony_APP_ID = "";
+    private static String Adcolony_ZONE_ID = "";
+    private static String Adcolony_banner_Zone_ID = "";
+
+
+    public final String[] AD_UNIT_Zone_Ids = new String[2];
+
+
+    public com.google.android.gms.ads.InterstitialAd googleInterstitialAd;
     private com.facebook.ads.InterstitialAd facebookInterstitialAd;
     private com.facebook.ads.AdView adView;
+
+    // for startApp
+    private String StartAppId = "";
 
 
     private static String google_appid = "";
@@ -105,7 +120,7 @@ public class AdsClass extends AppCompatActivity  {
                     ai = this.getPackageManager().getApplicationInfo( this.getPackageName(), PackageManager.GET_META_DATA );
                     AppKey = String.valueOf(ai.metaData.get("my_app_id"));
 
-                   // Toast.makeText(this, AppKey, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(this, AppKey, Toast.LENGTH_SHORT).show();
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -171,6 +186,39 @@ public class AdsClass extends AppCompatActivity  {
                                         facebookBannerAdid = adsList.get(i).getPlacementId();
                                     }
                                     //  loadInterastialAds();
+                                } else if (currentadnetwork.equals("vungle")) {
+                                    if (adsList.get(i).getAdNetwork().equals("vungle") && (adsList.get(i).getAdsType().equals("inter"))) {
+                                        Vungle_APP_ID = adsList.get(i).getNetworkAppId();
+                                        Vungle_Int_ID = adsList.get(i).getPlacementId();
+                                    } else if (adsList.get(i).getAdNetwork().equals("vungle") && (adsList.get(i).getAdsType().equals("banner"))) {
+                                        Vungle_APP_ID = adsList.get(i).getNetworkAppId();
+                                        Vungle_Banner_ID = adsList.get(i).getPlacementId();
+                                    }
+                                    //  loadInterastialAds();
+
+                                } else if (currentadnetwork.equals("adcolony")) {
+                                    if (adsList.get(i).getAdNetwork().equals("adcolony") && (adsList.get(i).getAdsType().equals("inter"))) {
+
+                                        AdColony_APP_ID = adsList.get(i).getNetworkAppId();
+                                        Adcolony_ZONE_ID = adsList.get(i).getPlacementId();
+                                        AD_UNIT_Zone_Ids[0] = Adcolony_ZONE_ID;
+                                    } else if (adsList.get(i).getAdNetwork().equals("adcolony") && (adsList.get(i).getAdsType().equals("banner"))) {
+                                        AdColony_APP_ID = adsList.get(i).getNetworkAppId();
+                                        Adcolony_banner_Zone_ID = adsList.get(i).getPlacementId();
+                                        AD_UNIT_Zone_Ids[1] = Adcolony_ZONE_ID;
+                                    }
+                                    //  loadInterastialAds();
+
+                                } else if (currentadnetwork.equals("startapp")) {
+                                    if (adsList.get(i).getAdNetwork().equals("startapp") && (adsList.get(i).getAdsType().equals("inter"))) {
+                                        StartAppId = adsList.get(i).getNetworkAppId();
+                                        // googleInterastialAdsId = adsList.get(i).getPlacementId();
+                                    }
+                                    //  loadInterastialAds();
+                                }
+                                else if (currentadnetwork.equals("addapptr")) {
+
+
                                 }
 
 
@@ -185,7 +233,7 @@ public class AdsClass extends AppCompatActivity  {
                         } else {
 
                             pDialog.dismiss();
-                         //   Toast.makeText(AdsClass.this, "No record Found", Toast.LENGTH_SHORT).show();
+                            //   Toast.makeText(AdsClass.this, "No record Found", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         nodata = true;
@@ -236,20 +284,18 @@ public class AdsClass extends AppCompatActivity  {
 
 
     private void showToastMessage(String message) {
-       // Toast.makeText(AdsClass.this, message, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(AdsClass.this, message, Toast.LENGTH_SHORT).show();
     }
 
 
-
-
+    @SuppressLint("MissingPermission")
     public void initGoogleAds() {
-        MobileAds.initialize(AdsClass.this,google_appid);
+        MobileAds.initialize(AdsClass.this, google_appid);
     }
 
-
+    @SuppressLint("MissingPermission")
     private void loadGoogleInterastialAds() {
-
-        googleInterstitialAd =  new com.google.android.gms.ads.InterstitialAd(AdsClass.this);
+        googleInterstitialAd = new com.google.android.gms.ads.InterstitialAd(this);
         googleInterstitialAd.setAdUnitId(googleInterastialAdsId);
         googleInterstitialAd.loadAd(new AdRequest.Builder().build());
 
@@ -269,7 +315,7 @@ public class AdsClass extends AppCompatActivity  {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                  //  loadGoogleInterastialAds();
+                    //  loadGoogleInterastialAds();
                 }
 
                 @Override
@@ -331,7 +377,7 @@ public class AdsClass extends AppCompatActivity  {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                  //  loadfacebookInterastialAds();
+                    //  loadfacebookInterastialAds();
                 }
 
                 @Override
@@ -341,7 +387,7 @@ public class AdsClass extends AppCompatActivity  {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                   // loadfacebookInterastialAds();
+                    // loadfacebookInterastialAds();
 
                 }
 
@@ -380,6 +426,7 @@ public class AdsClass extends AppCompatActivity  {
         adContainer.addView(adView);
         adView.loadAd();
     }
+
 
 
     public final static boolean isConnected(Context context) {
@@ -507,8 +554,8 @@ public class AdsClass extends AppCompatActivity  {
         } else if (currentadnetwork.equals("facebook")) {
             initfacebookAds();
 
-        }else{
-          //  Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
+        } else{
+            //  Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -521,7 +568,7 @@ public class AdsClass extends AppCompatActivity  {
             loadfacebookInterastialAds();
         }
         else {
-         //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -538,7 +585,7 @@ public class AdsClass extends AppCompatActivity  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-          //  Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -550,9 +597,32 @@ public class AdsClass extends AppCompatActivity  {
         } else if (currentadnetwork.equals("facebook")) {
             initfacebookAds();
             showfacebookBanner();
-        }
-        else {
+        } else {
             //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public  Callable clb=null;
+    public boolean AdsShown = false;
+
+
+    public int resumeonce = 0;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (currentadnetwork.equals("addapptr")) {
+            if(AdsShown) {
+                if(resumeonce == 0) {
+
+                    resumeonce = 1;
+                    try {
+                        clb.call();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 }
