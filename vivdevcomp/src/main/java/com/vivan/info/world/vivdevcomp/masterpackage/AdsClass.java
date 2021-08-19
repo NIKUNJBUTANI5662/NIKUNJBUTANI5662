@@ -309,172 +309,9 @@ public class AdsClass extends AppCompatActivity  {
 
 
 
-//    private void initVungleInterastailAd() {
-//        Vungle.init(Vungle_APP_ID, AdsClass.this.getApplicationContext(), new InitCallback() {
-//            @Override
-//            public void onSuccess() {
-//                loadVungleBanner();
-//            }
-//
-//            @Override
-//            public void onError(VungleException e) {
-//
-//            }
-//
-//            @Override
-//            public void onAutoCacheAdAvailable(String pid) {
-//
-//            }
-//        });
-//    }
-
-    private void loadVungleInterastialAd() {
-
-        Vungle.loadAd(Vungle_Int_ID, new LoadAdCallback() {
-            @Override
-            public void onAdLoad(String id) {
-
-            }
-
-            @Override
-            public void onError(String id, VungleException e) {
-
-            }
-        });
-    }
-
-//    private void loadVungleBanner() {
-//        Banners.loadBanner(Vungle_Banner_ID, AdConfig.AdSize.BANNER, vungleLoadAdCallback);
-//    }
-//
-//    private void playVungleBanner() {
-//        // vungle banner
-//        RelativeLayout bannerContainer = findViewById(R.id.layout_banner);
-//        if (Banners.canPlayAd(Vungle_Banner_ID, AdConfig.AdSize.BANNER)) {
-//            VungleBanner vungleBanner = Banners.getBanner(Vungle_Banner_ID, AdConfig.AdSize.BANNER, VunglePlayAdBannerCallback);
-//            bannerContainer.addView(vungleBanner);
-//        }
-//    }
-
-    private void playVungleInterastialAd(Callable<Void> callable) {
-
-        Vungle.playAd(Vungle_Int_ID, new AdConfig(), new PlayAdCallback() {
-            @Override
-            public void onAdStart(String placementReferenceID) {
-                //    showToastMessage("Ad Start");
-            }
-
-            @Override
-            public void onAdViewed(String placementReferenceID) {
-                //    showToastMessage("Ad Viewed");
-            }
-
-
-            @Override
-            public void onAdEnd(String id, boolean completed, boolean isCTAClicked) {
-                try {
-                    callable.call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                loadfacebookInterastialAds();
-            }
-
-            @Override
-            public void onAdEnd(String placementReferenceID) {
-
-                //showToastMessage("Ad End");
-            }
-
-            @Override
-            public void onAdClick(String placementReferenceID) {
-                showToastMessage("Ad Clicked");
-            }
-
-            @Override
-            public void onAdRewarded(String placementReferenceID) {
-                // showToastMessage("User Rewarded");
-            }
-
-            @Override
-            public void onAdLeftApplication(String placementReferenceID) {
-                //   showToastMessage("User Left Application");
-            }
-
-            @Override
-            public void onError(String id, VungleException e) {
-                //  setButtonState(false, true, false);
-                try {
-                    callable.call();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                loadVungleInterastialAd();
-//                showToastMessage("Ad Play Error : " + e.getLocalizedMessage());
-            }
-        });
-    }
-
     private void showToastMessage(String message) {
         // Toast.makeText(AdsClass.this, message, Toast.LENGTH_SHORT).show();
     }
-
-    private final PlayAdCallback VunglePlayAdBannerCallback = new PlayAdCallback() {
-        @Override
-        public void onAdStart(String id) {
-            // Ad experience started
-        }
-
-        @Override
-        public void onAdEnd(String id, boolean completed, boolean isCTAClicked) {
-
-        }
-
-        @Override
-        public void onAdViewed(String id) {
-            // Ad has rendered
-        }
-
-        @Override
-        public void onAdEnd(String id) {
-            // Ad experience ended
-        }
-
-        @Override
-        public void onAdClick(String id) {
-            // User clicked on ad
-        }
-
-        @Override
-        public void onAdRewarded(String id) {
-
-        }
-
-        @Override
-        public void onAdLeftApplication(String id) {
-            // User has left app during an ad experience
-        }
-
-        @Override
-        public void onError(String id, VungleException exception) {
-            // Ad failed to play
-        }
-    };
-
-//    private final LoadAdCallback vungleLoadAdCallback = new LoadAdCallback() {
-//        @Override
-//        public void onAdLoad(String id) {
-//            // Ad has been successfully loaded for the placement
-//            playVungleBanner();
-//        }
-//
-//        @Override
-//        public void onError(String id, VungleException exception) {
-//            // Ad has failed to load for the placement
-//        }
-//    };
-
-
 
 
     @SuppressLint("MissingPermission")
@@ -743,9 +580,6 @@ public class AdsClass extends AppCompatActivity  {
         } else if (currentadnetwork.equals("facebook")) {
             initfacebookAds();
 
-        } else if (currentadnetwork.equals("vungle")) {
-            loadVungleInterastialAd();
-
         }
         else{
             //  Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
@@ -771,8 +605,6 @@ public class AdsClass extends AppCompatActivity  {
             showGoogleInterastialAds(callable);
         } else if (currentadnetwork.equals("facebook")) {
             showFacebookAds(callable);
-        } else if (currentadnetwork.equals("vungle")) {
-            playVungleInterastialAd(callable);
         }
         else {
             try {
