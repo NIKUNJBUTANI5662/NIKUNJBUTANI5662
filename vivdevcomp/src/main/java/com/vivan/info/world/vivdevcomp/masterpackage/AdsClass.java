@@ -28,16 +28,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.adcolony.sdk.AdColony;
-import com.adcolony.sdk.AdColonyAdOptions;
-import com.adcolony.sdk.AdColonyAdSize;
-import com.adcolony.sdk.AdColonyAdView;
-import com.adcolony.sdk.AdColonyAdViewListener;
-import com.adcolony.sdk.AdColonyAppOptions;
-import com.adcolony.sdk.AdColonyInterstitial;
-import com.adcolony.sdk.AdColonyInterstitialListener;
-import com.adcolony.sdk.AdColonyUserMetadata;
-import com.adcolony.sdk.AdColonyZone;
 import com.bumptech.glide.Glide;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
@@ -73,7 +63,7 @@ import java.util.concurrent.Callable;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.adcolony.sdk.AdColony.requestInterstitial;
+
 
 
 public class AdsClass extends AppCompatActivity  {
@@ -86,7 +76,7 @@ public class AdsClass extends AppCompatActivity  {
     public static ArrayList<DialogDetail> dialogList = new ArrayList<>();
     public ArrayList<AdsDetail> adsList = new ArrayList<>();
     public static String currentadnetwork = "";
-    private AdColonyAdView bannerAdColony;
+
 
     // for vungle
     private static String Vungle_APP_ID = "";
@@ -108,9 +98,7 @@ public class AdsClass extends AppCompatActivity  {
     public final String[] AD_UNIT_Zone_Ids = new String[2];
     // final private String AdColony_TAG = "AdColonyDemo";
 
-    private AdColonyInterstitial ad;
-    private AdColonyInterstitialListener listener;
-    private AdColonyAdOptions adOptions;
+
     public com.google.android.gms.ads.InterstitialAd googleInterstitialAd;
     private com.facebook.ads.InterstitialAd facebookInterstitialAd;
     private com.facebook.ads.AdView adView;
@@ -322,84 +310,7 @@ public class AdsClass extends AppCompatActivity  {
     }
 
 
-    private void initAdcolony() {
-        AdColonyAppOptions appOptions = new AdColonyAppOptions()
-                .setUserID("xx")
-                .setKeepScreenOn(true);
 
-        AdColony.configure(this, appOptions, AdColony_APP_ID, AD_UNIT_Zone_Ids);
-
-
-        AdColonyUserMetadata metadata = new AdColonyUserMetadata()
-                .setUserAge(26)
-                .setUserEducation(AdColonyUserMetadata.USER_EDUCATION_BACHELORS_DEGREE)
-                .setUserGender(AdColonyUserMetadata.USER_MALE);
-
-    }
-
-    private void showAdcolonyInterastial(Callable<Void> callable) {
-        listener = new AdColonyInterstitialListener() {
-            @Override
-            public void onRequestFilled(AdColonyInterstitial ad) {
-                AdsClass.this.ad = ad;
-                ad.show();
-
-            }
-
-            @Override
-            public void onRequestNotFilled(AdColonyZone zone) {
-                try {
-                    callable.call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                requestInterstitial(Adcolony_ZONE_ID, this, adOptions);
-            }
-
-            @Override
-            public void onOpened(AdColonyInterstitial ad) {
-
-            }
-
-            @Override
-            public void onExpiring(AdColonyInterstitial ad) {
-//                try {
-//                    callable.call();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                requestInterstitial(Adcolony_ZONE_ID, this, adOptions);
-
-            }
-
-            @Override
-            public void onClosed(AdColonyInterstitial ad) {
-                try {
-                    callable.call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //  requestInterstitial(Adcolony_ZONE_ID, this, adOptions);
-            }
-        };
-
-        AdColony.requestInterstitial(Adcolony_ZONE_ID, listener, adOptions);
-
-    }
-
-
-    private void showAdcolonyBanner() {
-        AdColonyAdViewListener listener = new AdColonyAdViewListener() {
-            @Override
-            public void onRequestFilled(AdColonyAdView ad) {
-                RelativeLayout bannerContainer = (RelativeLayout) findViewById(R.id.layout_banner);
-                bannerContainer.addView(ad);
-                bannerAdColony = ad;
-
-            }
-        };
-        AdColony.requestAdView(Adcolony_banner_Zone_ID, listener, AdColonyAdSize.BANNER);
-    }
 
     private void initVungleInterastailAd() {
         Vungle.init(Vungle_APP_ID, AdsClass.this.getApplicationContext(), new InitCallback() {
@@ -864,8 +775,6 @@ public class AdsClass extends AppCompatActivity  {
 
         } else if (currentadnetwork.equals("startapp")) {
             initStartApp();
-        } else if (currentadnetwork.equals("adcolony")) {
-            initAdcolony();
         }
         else if(currentadnetwork.equals("addapptr"))
         {
@@ -886,8 +795,6 @@ public class AdsClass extends AppCompatActivity  {
             initVungleInterastailAd();
         } else if (currentadnetwork.equals("startapp")) {
             initStartApp();
-        } else if (currentadnetwork.equals("adcolony")) {
-            initAdcolony();
         }
 
         else {
@@ -906,8 +813,6 @@ public class AdsClass extends AppCompatActivity  {
         } else if (currentadnetwork.equals("startapp")) {
             StartAppAd.showAd(this);
 
-        } else if (currentadnetwork.equals("adcolony")) {
-            showAdcolonyInterastial(callable);
         }
         else {
             try {
@@ -932,9 +837,6 @@ public class AdsClass extends AppCompatActivity  {
         } else if (currentadnetwork.equals("startapp")) {
             showStartAppBanner();
 
-        } else if (currentadnetwork.equals("adcolony")) {
-            initAdcolony();
-            showAdcolonyBanner();
         }
         else {
             //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();

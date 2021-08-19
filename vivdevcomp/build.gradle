@@ -77,8 +77,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-basement:17.4.0'
     implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
 
-    // Adcolony
-    implementation 'com.adcolony:sdk:4.4.0'
+
 
     // start App
     implementation 'com.startapp:inapp-sdk:4.6.+'
@@ -87,12 +86,6 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
 
-
-//    implementation ('com.intentsoftware.addapptr:AATKit:2.29.13') {
-//        transitive = true
-//        exclude group: 'com.intentsoftware.addapptr.subsdk', module:'AdColony'
-//        exclude group: 'com.facebook.android', module:'audience-network-sdk'
-//    }
 
 
 
