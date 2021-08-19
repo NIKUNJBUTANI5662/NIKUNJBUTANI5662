@@ -79,8 +79,7 @@ dependencies {
 
 
 
-    // start App
-    implementation 'com.startapp:inapp-sdk:4.6.+'
+
     implementation 'com.facebook.android:audience-network-sdk:6.+'
 
     implementation 'com.android.support:multidex:1.0.3'

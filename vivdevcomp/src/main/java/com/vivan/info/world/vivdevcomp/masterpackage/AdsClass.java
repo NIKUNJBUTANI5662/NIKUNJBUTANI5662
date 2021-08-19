@@ -42,10 +42,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BaseJsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.startapp.sdk.ads.banner.Banner;
-import com.startapp.sdk.adsbase.StartAppAd;
-import com.startapp.sdk.adsbase.StartAppSDK;
-import com.startapp.sdk.adsbase.VideoListener;
+
 
 import com.vivan.info.world.vivdevcomp.R;
 import com.vungle.warren.AdConfig;
@@ -477,20 +474,7 @@ public class AdsClass extends AppCompatActivity  {
         }
     };
 
-    private void initStartApp() {
-        StartAppSDK.init(this, StartAppId, false);
-    }
 
-    private void initStartAppRewardVideo() {
-        StartAppAd ads = new StartAppAd(this);
-        ads.loadAd(StartAppAd.AdMode.REWARDED_VIDEO);
-        ads.setVideoListener(new VideoListener() {
-            @Override
-            public void onVideoCompleted() {
-
-            }
-        });
-    }
 
 
     @SuppressLint("MissingPermission")
@@ -632,18 +616,7 @@ public class AdsClass extends AppCompatActivity  {
         adView.loadAd();
     }
 
-    private void showStartAppBanner() {
-        RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.layout_banner);
-        Banner startAppBanner = new Banner(this);
-        RelativeLayout.LayoutParams bannerParameters =
-                new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-        bannerParameters.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        bannerParameters.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-// Add to main Layout
-        adContainer.addView(startAppBanner);
-    }
+
 
     public final static boolean isConnected(Context context) {
         final ConnectivityManager connectivityManager =
@@ -773,8 +746,6 @@ public class AdsClass extends AppCompatActivity  {
         } else if (currentadnetwork.equals("vungle")) {
             loadVungleInterastialAd();
 
-        } else if (currentadnetwork.equals("startapp")) {
-            initStartApp();
         }
         else if(currentadnetwork.equals("addapptr"))
         {
@@ -793,10 +764,7 @@ public class AdsClass extends AppCompatActivity  {
             loadfacebookInterastialAds();
         } else if (currentadnetwork.equals("vungle")) {
             initVungleInterastailAd();
-        } else if (currentadnetwork.equals("startapp")) {
-            initStartApp();
         }
-
         else {
             //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
         }
@@ -810,9 +778,6 @@ public class AdsClass extends AppCompatActivity  {
             showFacebookAds(callable);
         } else if (currentadnetwork.equals("vungle")) {
             playVungleInterastialAd(callable);
-        } else if (currentadnetwork.equals("startapp")) {
-            StartAppAd.showAd(this);
-
         }
         else {
             try {
@@ -834,9 +799,6 @@ public class AdsClass extends AppCompatActivity  {
             showfacebookBanner();
         } else if (currentadnetwork.equals("vungle")) {
             playVungleBanner();
-        } else if (currentadnetwork.equals("startapp")) {
-            showStartAppBanner();
-
         }
         else {
             //   Toast.makeText(this, "No ads", Toast.LENGTH_SHORT).show();
