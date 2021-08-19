@@ -45,15 +45,7 @@ import com.loopj.android.http.RequestParams;
 
 
 import com.vivan.info.world.vivdevcomp.R;
-import com.vungle.warren.AdConfig;
-import com.vungle.warren.Banners;
-import com.vungle.warren.InitCallback;
-import com.vungle.warren.LoadAdCallback;
-import com.vungle.warren.PlayAdCallback;
-import com.vungle.warren.Vungle;
-import com.vungle.warren.VungleBanner;
-import com.vungle.warren.error.VungleException;
-//import com.vivan.info.world.vivdevcomp.R;
+
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -75,40 +67,13 @@ public class AdsClass extends AppCompatActivity  {
     public static String currentadnetwork = "";
 
 
-    // for vungle
-    private static String Vungle_APP_ID = "";
-    private static String Vungle_Int_ID = "";
-    private static String Vungle_Banner_ID = "";
-//
-//    private static String Vungle_APP_ID = "5fffc0d9d15708acb64b1789";
-//    private String Vungle_Int_ID="TEACHER_INT-1125834";
-//    private String Vungle_Banner_ID="TEACHER_BANNER-2499102";
-
-    // for Adscolony
-    private static String AdColony_APP_ID = "";
-    private static String Adcolony_ZONE_ID = "";
-    private static String Adcolony_banner_Zone_ID = "";
-
-    //    private String AdColony_APP_ID = "appfd999accf4f54a65b2";
-//    private String Adcolony_ZONE_ID = "vzea12dd5bdb1242da87";
-//    private String Adcolony_banner_Zone_ID = "vz04cdc7f61c2d4aedb8";
-    public final String[] AD_UNIT_Zone_Ids = new String[2];
-    // final private String AdColony_TAG = "AdColonyDemo";
-
 
     public com.google.android.gms.ads.InterstitialAd googleInterstitialAd;
     private com.facebook.ads.InterstitialAd facebookInterstitialAd;
     private com.facebook.ads.AdView adView;
 
-    // for startApp
-    private String StartAppId = "";
-//    private String StartAppId = "200045219";
 
-    // for google
-//    private String google_appid="ca-app-pub-3940256099942544~3347511713";
-//    private String googleInterastialAdsId="ca-app-pub-3940256099942544/1033173712";
-//    private String googleBannerAdsId="ca-app-pub-3940256099942544/6300978111";
-//
+
 
     private static String google_appid = "";
     private static String googleInterastialAdsId = "";
@@ -123,13 +88,8 @@ public class AdsClass extends AppCompatActivity  {
 
     public static String AppKey = "";
 
-    private int fullscreenPlacementId = -1;
-    private int bannerPlacementId = -1;
 
     private MyAppClass showcaseApplication;
-//
-//    private String facebookInterstitialAdid="373097850233939_373098686900522";
-//    private String facebookBannerAdid="373097850233939_750608699149517";
 
 
     @Override
@@ -210,35 +170,6 @@ public class AdsClass extends AppCompatActivity  {
                                         facebookInterstitialAdid = adsList.get(i).getPlacementId();
                                     } else if (adsList.get(i).getAdNetwork().equals("facebook") && (adsList.get(i).getAdsType().equals("banner"))) {
                                         facebookBannerAdid = adsList.get(i).getPlacementId();
-                                    }
-                                    //  loadInterastialAds();
-                                } else if (currentadnetwork.equals("vungle")) {
-                                    if (adsList.get(i).getAdNetwork().equals("vungle") && (adsList.get(i).getAdsType().equals("inter"))) {
-                                        Vungle_APP_ID = adsList.get(i).getNetworkAppId();
-                                        Vungle_Int_ID = adsList.get(i).getPlacementId();
-                                    } else if (adsList.get(i).getAdNetwork().equals("vungle") && (adsList.get(i).getAdsType().equals("banner"))) {
-                                        Vungle_APP_ID = adsList.get(i).getNetworkAppId();
-                                        Vungle_Banner_ID = adsList.get(i).getPlacementId();
-                                    }
-                                    //  loadInterastialAds();
-
-                                } else if (currentadnetwork.equals("adcolony")) {
-                                    if (adsList.get(i).getAdNetwork().equals("adcolony") && (adsList.get(i).getAdsType().equals("inter"))) {
-
-                                        AdColony_APP_ID = adsList.get(i).getNetworkAppId();
-                                        Adcolony_ZONE_ID = adsList.get(i).getPlacementId();
-                                        AD_UNIT_Zone_Ids[0] = Adcolony_ZONE_ID;
-                                    } else if (adsList.get(i).getAdNetwork().equals("adcolony") && (adsList.get(i).getAdsType().equals("banner"))) {
-                                        AdColony_APP_ID = adsList.get(i).getNetworkAppId();
-                                        Adcolony_banner_Zone_ID = adsList.get(i).getPlacementId();
-                                        AD_UNIT_Zone_Ids[1] = Adcolony_ZONE_ID;
-                                    }
-                                    //  loadInterastialAds();
-
-                                } else if (currentadnetwork.equals("startapp")) {
-                                    if (adsList.get(i).getAdNetwork().equals("startapp") && (adsList.get(i).getAdsType().equals("inter"))) {
-                                        StartAppId = adsList.get(i).getNetworkAppId();
-                                        // googleInterastialAdsId = adsList.get(i).getPlacementId();
                                     }
                                     //  loadInterastialAds();
                                 }

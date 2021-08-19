@@ -11,19 +11,22 @@ import java.util.concurrent.Callable;
 
 public class VideoActivity extends AdsClass{
 
+    MKPlayer mkPlayer;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
          loadInterastialAds();
         String myurl = getIntent().getStringExtra("url");
-        MKPlayer mkplayer = new MKPlayer(VideoActivity.this);
-        mkplayer.play(myurl);
+        mkPlayer = new MKPlayer(VideoActivity.this);
+        mkPlayer.play(myurl);
     }
 
 
     @Override
     public void onBackPressed() {
+        mkPlayer.stop();
         showInterstitialAds(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
