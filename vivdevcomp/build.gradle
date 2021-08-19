@@ -86,12 +86,7 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation ('com.intentsoftware.addapptr:AATKit:2.30.5') {
-        transitive = true
-        exclude group: 'com.intentsoftware.addapptr.subsdk', module:'AdColony'
-        exclude group: 'com.facebook.android', module:'audience-network-sdk'
 
-    }
 
 //    implementation ('com.intentsoftware.addapptr:AATKit:2.29.13') {
 //        transitive = true
