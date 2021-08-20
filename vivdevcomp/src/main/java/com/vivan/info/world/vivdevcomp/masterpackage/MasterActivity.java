@@ -1,6 +1,8 @@
 package com.vivan.info.world.vivdevcomp.masterpackage;
 
 import android.app.ProgressDialog;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -26,6 +28,7 @@ public class MasterActivity extends AdsClass{
 
     GsonUtils gsonUtils;
     ProgressDialog pDialog;
+    String DevCamAppKey;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +36,16 @@ public class MasterActivity extends AdsClass{
         setContentView(R.layout.activity_master);
 
         showBannerAds();
+
+        ApplicationInfo ai = null;
+        try {
+            ai = this.getPackageManager().getApplicationInfo( this.getPackageName(), PackageManager.GET_META_DATA );
+            DevCamAppKey = String.valueOf(ai.metaData.get("my_app_id"));
+
+            // Toast.makeText(this, AppKey, Toast.LENGTH_SHORT).show();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         lstMaster = (ListView)findViewById(R.id.lstMaster);
         gsonUtils = GsonUtils.getInstance();
@@ -59,7 +72,7 @@ public class MasterActivity extends AdsClass{
 
 
         RequestParams params1 = new RequestParams();
-        params1.put("app_key", AppKey);
+        params1.put("app_key", DevCamAppKey);
 
         try {
             client.setConnectTimeout(50000);
