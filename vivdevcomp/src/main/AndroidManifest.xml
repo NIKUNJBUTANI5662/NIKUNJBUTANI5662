@@ -10,6 +10,18 @@
 
         <meta-data android:name="my_app_id" android:value="${my_app_id}"/>
 
+        <activity android:name=".masterpackage.WebActivity"
+            android:exported="true"/>
+        <activity android:name=".masterpackage.YoutubeActivity"
+            android:exported="true"/>
+        <activity android:name=".masterpackage.VideoActivity"
+            android:exported="true"/>
+        <activity android:name=".masterpackage.MasterActivity"
+            android:exported="true"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
     </application>
 
 </manifest>
